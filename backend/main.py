@@ -16,9 +16,12 @@ def create_app():
     db.init_app(app)
     lm = LoginManager(app)
     CORS(app, supports_credentials=True, origins=["http://localhost:3000"])
+    
     from routes.auth_routes import auth_bp
+    from routes.vehicles_route import vehicles_bp
     
     app.register_blueprint(auth_bp, url_prefix='/auth')
+    app.register_blueprint(vehicles_bp, url_prefix='/vehicles')
 
     # Usuario logado
     @lm.user_loader
