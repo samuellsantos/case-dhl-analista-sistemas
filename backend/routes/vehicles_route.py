@@ -32,3 +32,24 @@ def registrar_veiculo():
     except Exception as e:
         return jsonify({'message': f'Não foi possível registrar o veiculo. {e}'}), 401
     
+    
+    
+@vehicles_bp.route('/listar_veiculos', methods = ['GET'])
+@login_required
+def listar_veiculos():
+    veiculos = Veiculos.query.all()
+    resultado = []
+    
+    for v in veiculos:
+        resultado.append({
+            "id": v.id,
+            "nome_motorista": v.nome_motorista,
+            "transportadora": v.transportadora,
+            "placa": v.placa,
+            "observacoes": v.observacoes,
+            "status": v.status,
+            "dt_entrada": v.dt_entrada.strftime("%d/%m/%Y %H:%M:%S") if v.dt_entrada else None,
+            "dt_saida": v.dt_saida.strftime("%d/%m/%Y %H:%M:%S") if v.dt_saida else None
+        })
+    return jsonify(resultado), 200
+    
