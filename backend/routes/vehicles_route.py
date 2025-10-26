@@ -2,6 +2,8 @@ from flask import request, jsonify, Blueprint
 from flask_login import login_required
 from models.Veiculos import Veiculos
 from db import db
+import pytz
+from datetime import datetime
 
 vehicles_bp = Blueprint('vehicles', __name__)
 
@@ -52,4 +54,29 @@ def listar_veiculos():
             "dt_saida": v.dt_saida.strftime("%d/%m/%Y %H:%M:%S") if v.dt_saida else None
         })
     return jsonify(resultado), 200
+
+@vehicles_bp.route('/despachar_veiculo/<int:id>', methods = ['PUT'])
+@login_required
+def despachar_veiculo(id):
+    novo_status = 'Despachado'
+    dt_saida = datetime.now(pytz.timezone("America/Sao_Paulo"))
+    veiculo = Veiculos.query.get(id)
+    
+    if not veiculo:
+        return jsonify({'message': 'Veiculo não encontrado.'}), 404
+    
+    
+    veiculo.status = novo_status
+    veiculo.dt_saida = dt_saida
+    
+    db.session.commit()
+    
+    return jsonify({
+        "mensagem": f"Veículo {veiculo.id} ({veiculo.placa}) despachado com sucesso.",
+        "motorista": veiculo.nome_motorista,
+        "transportadora": veiculo.transportadora,
+        "status_atual": veiculo.status,
+        "dt_saida": veiculo.dt_saida.strftime("%d/%m/%Y %H:%M:%S")
+    }), 200
+
     
