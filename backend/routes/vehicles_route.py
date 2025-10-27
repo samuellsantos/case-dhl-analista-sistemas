@@ -58,12 +58,17 @@ def listar_veiculos():
 @vehicles_bp.route('/despachar_veiculo/<int:id>', methods = ['PUT'])
 @login_required
 def despachar_veiculo(id):
-    novo_status = 'Despachado'
-    dt_saida = datetime.now(pytz.timezone("America/Sao_Paulo"))
     veiculo = Veiculos.query.get(id)
     
+    if veiculo.status != 'Em Patio':
+        return jsonify({'message': 'O veiculo já foi despachado.'}), 409
+    
+    novo_status = 'Despachado'
+    dt_saida = datetime.now(pytz.timezone("America/Sao_Paulo"))
+    
+    
     if not veiculo:
-        return jsonify({'message': 'Veiculo não encontrado.'}), 404
+        return jsonify({'message': 'Veículo não encontrado.'}), 404
     
     
     veiculo.status = novo_status
@@ -79,4 +84,16 @@ def despachar_veiculo(id):
         "dt_saida": veiculo.dt_saida.strftime("%d/%m/%Y %H:%M:%S")
     }), 200
 
+
+@vehicles_bp.route('deletar_veiculo/<int:id>', methods = ['DELETE'])
+@login_required
+def deletar_veiculo(id):
+    veiculo = Veiculos.query.get(id)
+    
+    if not veiculo:
+        return jsonify({'message': 'Veículo não entrado.'}), 404
+    
+    db.session.delete(veiculo)
+    db.session.commit()
+    return jsonify({'message': 'Veículo deletado com sucesso.'})
     
