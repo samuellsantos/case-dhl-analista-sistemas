@@ -8,7 +8,6 @@ from datetime import datetime
 vehicles_bp = Blueprint('vehicles', __name__)
 
 @vehicles_bp.route('/registrar_veiculo', methods = ['POST'])
-@login_required
 def registrar_veiculo():
     data = request.json
     nome_motorista = data.get('nome_motorista')
