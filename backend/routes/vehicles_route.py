@@ -7,7 +7,6 @@ from datetime import datetime
 
 vehicles_bp = Blueprint('vehicles', __name__)
 
-
 @vehicles_bp.route('/registrar_veiculo', methods = ['POST'])
 @login_required
 def registrar_veiculo():
@@ -34,8 +33,7 @@ def registrar_veiculo():
     except Exception as e:
         return jsonify({'message': f'Não foi possível registrar o veiculo. {e}'}), 401
     
-    
-    
+
 @vehicles_bp.route('/listar_veiculos', methods = ['GET'])
 @login_required
 def listar_veiculos():
