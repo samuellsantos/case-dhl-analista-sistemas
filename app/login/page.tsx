@@ -93,7 +93,7 @@ export default function LoginPage() {
           (<Alert>
             <AlertCircleIcon />
             <AlertTitle>
-              Erro.
+              Erro
             </AlertTitle>
             <AlertDescription>
               {mensagem}

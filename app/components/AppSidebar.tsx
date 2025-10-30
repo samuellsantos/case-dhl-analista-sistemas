@@ -1,4 +1,4 @@
-import { BarChart3, Boxes, Calendar, Home, Inbox, Package, PackageCheck, Search, Settings, Truck, TruckIcon } from "lucide-react"
+import { BarChart3, Boxes, Package, PackageCheck, TruckIcon } from "lucide-react"
 
 import {
   Sidebar,
@@ -44,7 +44,8 @@ const items = [
 
 export function AppSidebar() {
   return (
-    <Sidebar>
+    <div className="w-24">
+      <Sidebar className="fixed w-64">
       <SidebarContent>
         <SidebarGroup>
           <SidebarHeader>
@@ -68,5 +69,7 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
     </Sidebar>
+    </div>
+
   )
 }

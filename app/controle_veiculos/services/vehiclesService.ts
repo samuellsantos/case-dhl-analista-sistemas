@@ -14,3 +14,38 @@ export async function registerVehicle(data: any){
 
     return response.json()
 }
+
+
+export async function getVehicles() {
+  const response = await fetch("http://127.0.0.1:5000/vehicles/listar_veiculos", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error("Erro ao buscar veículos");
+  }
+
+  return response.json();
+}
+
+
+export async function updateVehicle(id: number) {
+  const response = await fetch(
+    `http://127.0.0.1:5000/vehicles/despachar_veiculo/${id}`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      }
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error("Erro ao atualizar veículo");
+  }
+
+  return response.json();
+}

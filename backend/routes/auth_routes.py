@@ -50,7 +50,7 @@ def login():
     
     user = db.session.query(Usuario).filter_by(nome = nome, senha = hash(senha)).first()
     if not user:
-        return jsonify({'message': 'Nome ou senha incorretas.'}), 400 #Bad Request
+        return jsonify({'message': 'Usuário ou senha incorretos.'}), 400 #Bad Request
     else:
         login_user(user)
         return jsonify({'message': 'Logado com sucesso!'})

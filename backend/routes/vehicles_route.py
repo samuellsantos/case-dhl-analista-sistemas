@@ -34,7 +34,6 @@ def registrar_veiculo():
     
 
 @vehicles_bp.route('/listar_veiculos', methods = ['GET'])
-@login_required
 def listar_veiculos():
     veiculos = Veiculos.query.all()
     resultado = []
@@ -53,7 +52,6 @@ def listar_veiculos():
     return jsonify(resultado), 200
 
 @vehicles_bp.route('/despachar_veiculo/<int:id>', methods = ['PUT'])
-@login_required
 def despachar_veiculo(id):
     veiculo = Veiculos.query.get(id)
     
@@ -83,7 +81,6 @@ def despachar_veiculo(id):
 
 
 @vehicles_bp.route('deletar_veiculo/<int:id>', methods = ['DELETE'])
-@login_required
 def deletar_veiculo(id):
     veiculo = Veiculos.query.get(id)
     

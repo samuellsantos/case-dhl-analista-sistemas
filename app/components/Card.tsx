@@ -8,15 +8,20 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-export default function CardComponent() {
+type CardComponentProps = {
+  titulo: string;
+  valor: number;
+}
+
+export default function CardComponent({titulo, valor}: CardComponentProps) {
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle>Caminhões no Patio</CardTitle>
+        <CardTitle>{titulo}</CardTitle>
         <CardDescription>Atualmente</CardDescription>
       </CardHeader>
       <CardContent>
-        <p className="text-xl font-bold">450</p>
+        <p className="text-xl font-bold">{valor}</p>
       </CardContent>
       <CardFooter>
         <p></p>
