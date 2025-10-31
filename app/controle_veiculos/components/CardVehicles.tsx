@@ -57,7 +57,7 @@ export default function CardVehicles({
     </CardTitle>
     <CardDescription></CardDescription>
     <CardAction>
-         <ConfirmationDispatch id={id} />
+         <ConfirmationDispatch id={id} tipo={tipo}/>
     </CardAction>
   </CardHeader>
   <CardContent>

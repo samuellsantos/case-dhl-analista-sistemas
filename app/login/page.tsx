@@ -1,6 +1,6 @@
 'use client'
 import { useState } from "react";
-import { loginUser } from "./services/userService";
+import { createUser, loginUser } from "./services/userService";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label"; 
 import { Button } from "@/components/ui/button";
@@ -28,7 +28,24 @@ export default function LoginPage() {
       setMensagem(resultado.message);
       limparMensagem()
       if (resultado.message == 'Logado com sucesso!') {
-        setTimeout(() => router.push('/'), 1000)
+        setTimeout(() => router.push('/controle_veiculos'), 1000)
+        
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
+    const handleCreateUser = async (e: React.FormEvent) => {
+    e.preventDefault(); 
+
+    try {
+      const resultado = await createUser({ nome: usuario, senha: password });
+      setMensagem(resultado.message);
+      limparMensagem()
+      if (resultado.message == 'Logado com sucesso!') {
+        setTimeout(() => router.push('/controle_veiculos'), 1000)
         
       }
     } catch (error) {
@@ -74,11 +91,11 @@ export default function LoginPage() {
             Logar
           </Button>
 
-          <Button type="button" className="w-full mt-2 cursor-pointer" variant={"secondary"}>
+          <Button type="button" onClick={handleCreateUser} className="w-full mt-2 cursor-pointer" variant={"secondary"}>
             Registrar usuário e senha
           </Button>
 
-          {mensagem == 'Logado com sucesso!' ?
+          {mensagem == 'Logado com sucesso!' || mensagem == 'Usuario criado com sucesso.' ?
           (<Alert>
             <CheckCheckIcon />
             <AlertTitle>

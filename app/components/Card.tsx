@@ -18,7 +18,6 @@ export default function CardComponent({titulo, valor}: CardComponentProps) {
     <Card className="w-full">
       <CardHeader>
         <CardTitle>{titulo}</CardTitle>
-        <CardDescription>Atualmente</CardDescription>
       </CardHeader>
       <CardContent>
         <p className="text-xl font-bold">{valor}</p>

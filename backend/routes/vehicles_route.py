@@ -96,6 +96,35 @@ def despachar_veiculo(id):
     veiculo.status = novo_status
     veiculo.dt_saida = dt_saida
     
+
+@vehicles_bp.route('/despachar_veiculoexp/<int:id>', methods = ['PUT'])
+def despachar_veiculoexp(id):
+    veiculo = Veiculos.query.get(id)
+    data = request.json
+    nf = data.get('nf')
+    caixas = data.get('volumes')
+    pecas = data.get('pecas')
+    
+
+    
+    if veiculo.status != 'Em Patio':
+        return jsonify({'message': 'O veiculo já foi despachado.'}), 409
+    
+    novo_status = 'Despachado'
+    dt_saida = datetime.now(pytz.timezone("America/Sao_Paulo"))
+
+    
+    
+    if not veiculo:
+        return jsonify({'message': 'Veículo não encontrado.'}), 404
+    
+    
+    veiculo.status = novo_status
+    veiculo.dt_saida = dt_saida
+    veiculo.nf = nf
+    veiculo.volumes = caixas
+    veiculo.pecas = pecas
+    
     db.session.commit()
     
     return jsonify({

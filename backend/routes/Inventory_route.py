@@ -15,9 +15,6 @@ def adicionar_produto():
     if not all([nome, sku, posicao]):
         return jsonify({"error": "Campos obrigatórios: nome, sku, posicao"}), 400
 
-    if Produto.query.filter_by(sku=sku).first():
-        return jsonify({"error": "SKU já cadastrado"}), 409
-
     novo_produto = Produto(nome=nome, sku=sku, quantidade=quantidade, posicao=posicao)
     db.session.add(novo_produto)
     db.session.commit()

@@ -8,10 +8,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Boxes, ChevronRightCircle, Clock, Puzzle, Route, Tag, Tags, User2Icon } from "lucide-react";
+import { Route, Tag, Tags, User2Icon } from "lucide-react";
 
 
-type CardInboundProps = {
+type CardExpedicaoProps = {
   nf: number;
   motorista: string;
   placa: string;
@@ -21,7 +21,7 @@ type CardInboundProps = {
   pecas: number;
 }
 
-export default function CardInbound({nf, motorista, placa, transportadora, dt_entrada, caixas, pecas}: CardInboundProps) {
+export default function CardExpedicao({nf, motorista, placa, transportadora, dt_entrada, caixas, pecas}: CardExpedicaoProps) {
   return (
     <Card className="shadow-md">
       <CardHeader>
@@ -54,16 +54,6 @@ export default function CardInbound({nf, motorista, placa, transportadora, dt_en
           <li className="flex items-center gap-2">
             <Clock size={16} />
             <span>Chegada: {dt_entrada} </span>
-          </li>
-
-          <li className="flex items-center gap-2">
-            <Boxes size={16} />
-            <span>Caixas: {caixas}</span>
-          </li>
-
-          <li className="flex items-center gap-2">
-            <Puzzle size={16} />
-            <span>Peças: {pecas}</span>
           </li>
         </ul>
       </CardContent>

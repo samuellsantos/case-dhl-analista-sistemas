@@ -4,12 +4,17 @@ import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { SearchIcon, PlusIcon, BoxesIcon } from "lucide-react";
+import { SearchIcon, PlusIcon, BoxesIcon, XIcon, Divide } from "lucide-react";
 import CardComponent from "../components/Card";
-import { getInventory, deleteProduct, updateQuantity } from "./services/invetoryService";
+import {
+  getInventory,
+  deleteProduct,
+  updateQuantity,
+} from "./services/invetoryService";
 import { toast } from "sonner";
 import FormAddProduct from "./components/FormAddProduct";
 import ConfirmationDelete from "./components/ConfirmationDelete";
+import TableInventory from "./components/TableInventory";
 
 type Produto = {
   id: number;
@@ -32,6 +37,7 @@ export default function InventarioDashboard() {
       toast.error("Erro ao carregar produtos.");
     }
   }
+
   useEffect(() => {
     carregarProdutos();
   }, []);
@@ -47,22 +53,15 @@ export default function InventarioDashboard() {
 
   const totalItens = produtos.reduce((acc, p) => acc + p.quantidade, 0);
 
-  async function handleDelete(id: number) {
-    try {
-      await deleteProduct(id);
-      toast.success("Produto deletado com sucesso!");
-      carregarProdutos();
-    } catch {
-      toast.error("Erro ao deletar produto.");
-    }
-  }
 
   async function handleAlterarQuantidade(id: number, delta: number) {
     try {
       await updateQuantity(id, delta);
       carregarProdutos();
       toast.success(
-        delta > 0 ? "Quantidade aumentada com sucesso!" : "Quantidade reduzida com sucesso!"
+        delta > 0
+          ? "Quantidade aumentada com sucesso!"
+          : "Quantidade reduzida com sucesso!"
       );
     } catch {
       toast.error("Erro ao alterar quantidade.");
@@ -81,7 +80,15 @@ export default function InventarioDashboard() {
           </p>
         </div>
         <Button onClick={() => setFormAtivo(!formAtivo)}>
-          <PlusIcon className="mr-2" /> Adicionar Produto
+          {!formAtivo ? (
+            <div className="flex items-center justify-center">
+              <PlusIcon className="mr-2" /> Adicionar Produto
+            </div>
+          ) : (
+            <div className="flex items-center justify-center">
+              <XIcon className="mr-2" /> Fechar
+            </div>
+          )}
         </Button>
       </header>
 
@@ -130,7 +137,7 @@ export default function InventarioDashboard() {
             {produtosFiltrados.map((p) => (
               <Card
                 key={p.id}
-                className="p-4 space-y-3 border-l-4 border-blue-500"
+                className="p-4 space-y-3 border-l-4 border-red-500"
               >
                 <h2 className="font-bold text-lg">{p.nome}</h2>
                 <p>SKU: {p.sku}</p>
@@ -147,7 +154,9 @@ export default function InventarioDashboard() {
                     >
                       ➖
                     </Button>
-                    <span className="w-8 text-center font-bold">{p.quantidade}</span>
+                    <span className="w-8 text-center font-bold">
+                      {p.quantidade}
+                    </span>
                     <Button
                       variant="outline"
                       size="sm"
@@ -168,12 +177,13 @@ export default function InventarioDashboard() {
                   >
                     Mover
                   </Button>
-                  <ConfirmationDelete id={p.id}/>
+                  <ConfirmationDelete id={p.id} />
                 </div>
               </Card>
             ))}
           </div>
         )}
+        <TableInventory data={produtos}/>
       </Card>
     </div>
   );

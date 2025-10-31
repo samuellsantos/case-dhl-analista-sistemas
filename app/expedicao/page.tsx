@@ -6,10 +6,11 @@ import { Input } from "@/components/ui/input";
 import { SearchIcon } from "lucide-react";
 import CardComponent from "../components/Card";
 import { getVehicles } from "../controle_veiculos/services/vehiclesService";
-import TabelaInbounds from "../inbound/components/TabelaInbounds";
 import CardInbound from "../inbound/components/CardInbound";
+import CardExpedicao from "./components/CardOutbound";
+import TableVehicles from "../components/TableVehicles";
 
-type InboundProps = {
+type ExpedicaoProps = {
   id: number;
   nf: number;
   placa: string;
@@ -25,27 +26,12 @@ type InboundProps = {
 };
 
 
-export default function Inbound() {
-  const [inbounds, setInbounds] = useState<InboundProps[]>([]);
+export default function Expedicao() {
+  const [expedicao, setexpedicao] = useState<ExpedicaoProps[]>([]);
   const [filtro, setFiltro] = useState("");
   const [loading, setLoading] = useState(true);
 
-  const inboundsDespachados = inbounds.filter((e) => e.status != "Em Patio")
-  const inboundsEmPatio = inbounds.filter((e) => e.status == "Em Patio")
-
-const chartData = Object.values(
-  inboundsDespachados.reduce((acc, i) => {
-    const day = i.dt_entrada.split(" ")[0];
-    if (!acc[day]) {
-      acc[day] = { day, volumes: 0, pecas: 0 };
-    }
-    acc[day].volumes += i.volumes;
-    acc[day].pecas += i.pecas;
-    return acc;
-  }, {} as Record<string, { day: string; volumes: number; pecas: number }>)
-);
-
-console.log(chartData);
+  const expedicaoDespachados = expedicao.filter((e) => e.status != "Em Patio")
 
 
 useEffect(() => {
@@ -53,7 +39,7 @@ useEffect(() => {
       try {
         setLoading(true);
         const dados = await getVehicles();
-        setInbounds(dados.filter((e:any) => e.tipo == "Expedição"));
+        setexpedicao(dados.filter((e:any) => e.tipo == "Expedição"));
       } catch (error) {
         console.error(error);
       } finally {
@@ -68,17 +54,17 @@ useEffect(() => {
     hoje.getMonth() + 1
   ).padStart(2, "0")}/${hoje.getFullYear()}`;
 
-  const entradasHoje = inbounds.filter((i) =>
+  const entradasHoje = expedicao.filter((i) =>
     i.dt_entrada.startsWith(hojeStr)
   ).length;
 
-  const saidasHoje = inbounds.filter(
+  const saidasHoje = expedicao.filter(
     (i) => i.dt_saida && i.dt_saida.startsWith(hojeStr)
   ).length;
 
-  const emPatio = inbounds.filter((i) => i.status === "Em Patio" && i.tipo === "Expedição");
+  const emPatio = expedicao.filter((i) => i.status === "Em Patio" && i.tipo === "Expedição");
 
-  const inboundsFiltrados = emPatio.filter((i) => {
+  const expedicaoFiltrados = emPatio.filter((i) => {
     const termo = filtro.toLowerCase();
     return (
       i.placa.toLowerCase().includes(termo) ||
@@ -131,8 +117,8 @@ useEffect(() => {
                       md:grid-cols-3 
                       lg:grid-cols-4"
           >
-            {inboundsFiltrados.map((i) => (
-              <CardInbound
+            {expedicaoFiltrados.map((i) => (
+              <CardExpedicao
               nf={i.nf}
               motorista={i.nome_motorista}
               placa={i.placa}
@@ -143,18 +129,14 @@ useEffect(() => {
               key={i.id}
               />
             ))}
-            
           </div>
+          
         )}
-
-        <TabelaInbounds inbounds={inbounds}/>
+        <h1 className="text-2xl font-bold font-sans">Relatório Geral</h1>
+        <TableVehicles data={expedicao}/>
       </Card>
 
-      {/* <Card className="p-8">
-        <h1 className="font-bold text-2xl">Inbounds recebidos por dia</h1>
-        <ChartInbound data={chartData}/>
-      </Card> */}
-
+       
       
     </div>
   );

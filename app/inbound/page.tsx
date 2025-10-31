@@ -10,8 +10,9 @@ import CardComponent from "../components/Card";
 import CardInbound from "./components/CardInbound";
 import { getVehicles } from "../controle_veiculos/services/vehiclesService";
 import { ChartInbound } from "./components/InboundChart";
-import TabelaInbounds from "./components/TabelaInbounds";
+import TabelaInbounds from "../components/TableVehicles";
 import ConfirmationDispatch from "../controle_veiculos/components/ConfirmationDispatch";
+import TableVehicles from "../components/TableVehicles";
 
 type InboundProps = {
   id: number;
@@ -150,15 +151,9 @@ useEffect(() => {
             
           </div>
         )}
-
-        <TabelaInbounds inbounds={inbounds}/>
+        <h1 className="text-2xl font-bold font-sans">Relatório Geral</h1>
+        <TableVehicles data={inbounds}/>
       </Card>
-
-      {/* <Card className="p-8">
-        <h1 className="font-bold text-2xl">Inbounds recebidos por dia</h1>
-        <ChartInbound data={chartData}/>
-      </Card> */}
-
       
     </div>
   );

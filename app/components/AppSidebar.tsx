@@ -27,7 +27,7 @@ const items = [
     icon: Boxes,
   },
   {
-    title: "Entrada de Caminhões",
+    title: "Controle de Veículos",
     url: "http://localhost:3000/controle_veiculos",
     icon: TruckIcon,
   },
@@ -35,12 +35,7 @@ const items = [
     title: "Expedição",
     url: "http://localhost:3000/expedicao",
     icon: PackageCheck,
-  },
-  {
-    title: "Relatórios",
-    url: "#",
-    icon: BarChart3,
-  },
+  }
 ]
 
 export function AppSidebar() {

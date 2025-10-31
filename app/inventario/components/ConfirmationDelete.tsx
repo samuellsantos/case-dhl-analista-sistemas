@@ -11,18 +11,20 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useRouter } from "next/navigation";
 import { deleteProduct } from "../services/invetoryService";
+import { toast } from "sonner";
 
 export default function ConfirmationDelete({id}: {id: number}) {
   const router = useRouter();
   const deletar = async () => {
        await deleteProduct(id);
+       toast.success("Item deletado com sucesso!")
        router.refresh();
    };
 
   return (
     <AlertDialog>
       <AlertDialogTrigger className="bg-red-500 hover:bg-red-600 px-2 py-1 text-white rounded-sm cursor-pointer text-sm">
-        Despachar
+        Deletar Item
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>

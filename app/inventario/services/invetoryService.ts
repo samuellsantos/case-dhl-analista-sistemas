@@ -8,7 +8,7 @@ export type ProductData = {
 const API_URL = "http://127.0.0.1:5000/inventory";
 
 export async function getInventory() {
-  const res = await fetch(`${API_URL}/listar_inventario`, { cache: "no-store" });
+  const res = await fetch(`${API_URL}/listar_inventario`);
   if (!res.ok) throw new Error("Erro ao buscar inventário");
   return res.json();
 }
@@ -19,7 +19,7 @@ export async function addProduct(data: ProductData) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
-  if (!res.ok) throw new Error("Erro ao adicionar produto");
+  // if (!res.ok) throw new Error("Erro ao adicionar produto");
   return res.json();
 }
 

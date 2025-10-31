@@ -26,12 +26,6 @@ export default function CardInventory({ id, nome, sku, quantidade, posicao }: Ca
     router.refresh();
   };
 
-  // const deletar = async () => {
-  //   if (confirm(`Excluir o produto ${nome}?`)) {
-  //     await deleteProduct(id);
-  //     router.refresh();
-  //   }
-  // };
 
   return (
     <Card className="border-l-4 border-blue-600 hover:shadow-lg transition">
