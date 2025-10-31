@@ -1,4 +1,4 @@
-import { BarChart3, Boxes, Package, PackageCheck, TruckIcon } from "lucide-react"
+import { BarChart3, Boxes, Menu, Package, PackageCheck, TruckIcon } from "lucide-react"
 
 import {
   Sidebar,
@@ -10,29 +10,30 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarTrigger,
 } from "@/components/ui/sidebar"
-import { Separator } from "@radix-ui/react-separator"
+import { Button } from "@/components/ui/button"
 
 // Menu items.
 const items = [
   {
     title: "Inbound",
-    url: "#",
+    url: "http://localhost:3000/inbound",
     icon: Package,
   },
   {
     title: "Inventário",
-    url: "#",
+    url: "http://localhost:3000/inventario",
     icon: Boxes,
   },
   {
     title: "Entrada de Caminhões",
-    url: "controle_veiculos",
+    url: "http://localhost:3000/controle_veiculos",
     icon: TruckIcon,
   },
   {
     title: "Expedição",
-    url: "#",
+    url: "http://localhost:3000/expedicao",
     icon: PackageCheck,
   },
   {
@@ -48,8 +49,11 @@ export function AppSidebar() {
       <Sidebar className="fixed w-64">
       <SidebarContent>
         <SidebarGroup>
-          <SidebarHeader>
-            <h1 className="text-2xl">ZYX</h1>
+          <SidebarHeader >
+            <div className="flex items-center justify-between">
+              <h1 className="text-2xl">ZYX</h1>
+              <SidebarTrigger size={"lg"}/>
+            </div>
           </SidebarHeader>
           <SidebarGroupLabel>Sistema Logístico</SidebarGroupLabel>
           <SidebarGroupContent>
@@ -70,6 +74,5 @@ export function AppSidebar() {
       </SidebarContent>
     </Sidebar>
     </div>
-
   )
 }

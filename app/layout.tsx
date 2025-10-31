@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { FormProvider } from "@/context/FormAddVehicle";
 import LayoutWrapper from "./LayoutWrapper";
+import { Toaster } from "sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,7 +29,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <FormProvider>
-          <LayoutWrapper>{children}</LayoutWrapper>
+          <LayoutWrapper>{children}
+             <Toaster richColors position="top-center" />
+          </LayoutWrapper>
         </FormProvider>
       </body>
     </html>

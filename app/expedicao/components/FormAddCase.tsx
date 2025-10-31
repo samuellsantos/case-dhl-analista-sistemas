@@ -13,7 +13,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { registerVehicle } from "../services/vehiclesService";
 import { useState } from "react";
 import {
   Select,
@@ -24,8 +23,6 @@ import {
 } from "@/components/ui/select";
 
 import { useRouter } from "next/navigation";
-import ConfirmationDispatch from "./ConfirmationDispatch";
-import { toast } from "sonner";
 
 export default function FormAddVehicle() {
   const router = useRouter()
@@ -40,40 +37,6 @@ export default function FormAddVehicle() {
 
   const { formActive, setFormActive } = useFormContext();
 
-  const validacaoForm =
-    tipo === "Inbound"
-      ? motorista?.trim() &&
-        placa?.trim() &&
-        transportadora?.trim() &&
-        nf &&
-        volumes &&
-        pecas
-      : motorista?.trim() && placa?.trim() && transportadora?.trim();
-
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    try {
-      const dados = {
-        nome_motorista: motorista,
-        placa,
-        transportadora,
-        observacoes: observacao,
-        tipo,
-        ...(tipo === "Inbound" && { volumes, pecas, nf: nf }), // envia NF só se for inbound
-      };
-
-
-      const resultado = await registerVehicle(dados);
-      toast.success("Veiculo adicionado com Sucesso!");
-      router.refresh()
-    } catch (error){
-      toast.error("Não foi possível adicionar o veículo.")
-    }
-
-    setFormActive(false);
-  };
 
   return (
     <div
@@ -101,7 +64,7 @@ export default function FormAddVehicle() {
         </CardHeader>
 
         <CardContent>
-          <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+          <form className="flex flex-col gap-4">
             {/* Tipo */}
             <div className="grid gap-2 w-full">
               <Label htmlFor="tipo">Tipo de Veículo</Label>
@@ -198,7 +161,6 @@ export default function FormAddVehicle() {
               </>
             )}
 
-            {/* Observação */}
             <div className="grid w-full gap-3">
               <Label htmlFor="obs">Adicione uma observação (opcional)</Label>
               <Textarea
@@ -215,10 +177,8 @@ export default function FormAddVehicle() {
           <Button
             type="submit"
             className="w-full cursor-pointer"
-            disabled={!validacaoForm}
-            onClick={handleSubmit}
           >
-            {!validacaoForm ? 'Preencha todos os campos': 'Registrar Veículo'}
+            {'Registrar Veículo'}
           </Button>
         </CardFooter>
       </Card>

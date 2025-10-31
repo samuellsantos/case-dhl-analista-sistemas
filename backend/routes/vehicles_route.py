@@ -7,30 +7,53 @@ from datetime import datetime
 
 vehicles_bp = Blueprint('vehicles', __name__)
 
-@vehicles_bp.route('/registrar_veiculo', methods = ['POST'])
+@vehicles_bp.route('/registrar_veiculo', methods=['POST'])
 def registrar_veiculo():
     data = request.json
     nome_motorista = data.get('nome_motorista')
     transportadora = data.get('transportadora')
     placa = data.get('placa')
     observacoes = data.get('observacoes')
+    tipo = data.get('tipo') 
     status = 'Em Patio'
-    
+
     try:
-        registro_veiculo = Veiculos(
-            nome_motorista = nome_motorista,
-            transportadora = transportadora,
-            placa = placa,
-            observacoes = observacoes,
-            status = status
-        )
-        
+        # Se for inbound, incluir volumes e peças
+        if tipo == "Inbound":
+            nf = data.get('nf')
+            caixas = data.get('volumes')
+            pecas = data.get('pecas')
+
+            registro_veiculo = Veiculos(
+                nome_motorista=nome_motorista,
+                transportadora=transportadora,
+                placa=placa,
+                observacoes=observacoes,
+                status=status,
+                tipo=tipo,
+                volumes=caixas,
+                pecas=pecas,
+                nf=nf
+            )
+        else:
+            registro_veiculo = Veiculos(
+                nome_motorista=nome_motorista,
+                transportadora=transportadora,
+                placa=placa,
+                observacoes=observacoes,
+                status=status,
+                tipo=tipo
+            )
+
         db.session.add(registro_veiculo)
         db.session.commit()
-        
-        return jsonify({'message': 'Veiculo registrado com sucesso.'}), 201
+
+        return jsonify({'message': f'{tipo} registrado com sucesso.'}), 201
+
     except Exception as e:
-        return jsonify({'message': f'Não foi possível registrar o veiculo. {e}'}), 401
+        db.session.rollback()
+        return jsonify({'message': f'Erro ao registrar veículo: {str(e)}'}), 400
+
     
 
 @vehicles_bp.route('/listar_veiculos', methods = ['GET'])
@@ -46,6 +69,10 @@ def listar_veiculos():
             "placa": v.placa,
             "observacoes": v.observacoes,
             "status": v.status,
+            "tipo": v.tipo if hasattr(v, 'tipo') else None,
+            "nf": v.nf if hasattr(v, 'nf') else None,
+            "volumes": v.volumes if hasattr(v, 'volumes') else None,
+            "pecas": v.pecas if hasattr(v, 'pecas') else None,
             "dt_entrada": v.dt_entrada.strftime("%d/%m/%Y %H:%M:%S") if v.dt_entrada else None,
             "dt_saida": v.dt_saida.strftime("%d/%m/%Y %H:%M:%S") if v.dt_saida else None
         })
@@ -85,7 +112,7 @@ def deletar_veiculo(id):
     veiculo = Veiculos.query.get(id)
     
     if not veiculo:
-        return jsonify({'message': 'Veículo não entrado.'}), 404
+        return jsonify({'message': 'Veículo não encontrado.'}), 404
     
     db.session.delete(veiculo)
     db.session.commit()

@@ -21,6 +21,8 @@ type VeiculoProps = {
   placa: string;
   status: "Em Patio" | "Em Transito" | "Finalizado";
   transportadora: string;
+  tipo: string;
+  nf: number
 };
 
 export default function VehiclesControl() {
@@ -94,7 +96,6 @@ export default function VehiclesControl() {
         <CardComponent titulo="Saídas Hoje" valor={saidasHoje} />
       </div>
 
-      <Separator />
       <Card className="p-8 space-y-4">
         <div className="flex items-center gap-2 justify-between">
           <h1 className="font-bold text-2xl">Veículos em Pátio</h1>
@@ -139,11 +140,13 @@ export default function VehiclesControl() {
             {veiculosFiltrados.map((veiculo) => (
               <CardVehicles
                 key={veiculo.id}
+                nf={veiculo.nf}
                 motorista={veiculo.nome_motorista}
                 placa={veiculo.placa}
                 dt_entrada={veiculo.dt_entrada}
                 id={veiculo.id}
                 transportadora={veiculo.transportadora}
+                tipo={veiculo.tipo}
               />
             ))}
           </div>

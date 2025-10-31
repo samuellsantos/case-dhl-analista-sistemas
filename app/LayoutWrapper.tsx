@@ -2,20 +2,26 @@
 
 import { usePathname } from "next/navigation";
 import { AppSidebar } from "./components/AppSidebar";
-import { SidebarProvider } from "@/components/ui/sidebar";
+import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
 
 export default function LayoutWrapper({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isLoginPage = pathname === "/login";
 
+  if (isLoginPage) {
+    return <main className="flex-1">{children}</main>;
+  }
+
   return (
-    <div className="flex w-full">
-      {!isLoginPage && (
-        <SidebarProvider className="w-72">
-          <AppSidebar />
-        </SidebarProvider>
-      )}
-      <main className="flex-1">{children}</main>
-    </div>
+    <SidebarProvider>
+      <div className="flex w-full min-h-screen">
+        <AppSidebar />
+        <SidebarInset>
+          <main className="flex-1 p-6">
+            <SidebarTrigger />
+            {children}</main>
+        </SidebarInset>
+      </div>
+    </SidebarProvider>
   );
 }

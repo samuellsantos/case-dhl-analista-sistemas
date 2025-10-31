@@ -44,7 +44,8 @@ export async function updateVehicle(id: number) {
   );
 
   if (!response.ok) {
-    throw new Error("Erro ao atualizar veículo");
+    const errorText = await response.text();
+    throw new Error(`Erro ao atualizar veículo: ${errorText}`);
   }
 
   return response.json();

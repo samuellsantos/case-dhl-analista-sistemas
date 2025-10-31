@@ -20,10 +20,13 @@ def create_app():
     from routes.auth_routes import auth_bp
     from routes.vehicles_route import vehicles_bp
     from routes.inbound_route import inbound_bp
+    from routes.Inventory_route import inventory_bp
     
     app.register_blueprint(auth_bp, url_prefix='/auth')
     app.register_blueprint(vehicles_bp, url_prefix='/vehicles')
     app.register_blueprint(inbound_bp, url_prefix='/inbound')
+    app.register_blueprint(inventory_bp, url_prefix='/inventory')
+    
     
 
     # Usuario logado
