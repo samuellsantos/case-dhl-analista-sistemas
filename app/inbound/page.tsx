@@ -50,7 +50,6 @@ const chartData = Object.values(
   }, {} as Record<string, { day: string; volumes: number; pecas: number }>)
 );
 
-console.log(chartData);
 
 
 useEffect(() => {

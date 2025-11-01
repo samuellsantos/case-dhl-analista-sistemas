@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardAction,
@@ -9,7 +8,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Clock, Route, Tag, TagsIcon, TruckIcon, User2Icon } from "lucide-react";
-import { updateVehicle } from "../services/vehiclesService";
 import { useRouter } from 'next/navigation'
 import ConfirmationDispatch from "./ConfirmationDispatch";
 

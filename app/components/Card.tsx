@@ -22,9 +22,6 @@ export default function CardComponent({titulo, valor}: CardComponentProps) {
       <CardContent>
         <p className="text-xl font-bold">{valor}</p>
       </CardContent>
-      <CardFooter>
-        <p></p>
-      </CardFooter>
     </Card>
   );
 }

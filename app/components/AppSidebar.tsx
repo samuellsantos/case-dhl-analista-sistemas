@@ -1,4 +1,4 @@
-import { BarChart3, Boxes, Menu, Package, PackageCheck, TruckIcon } from "lucide-react"
+import { Boxes, Package, PackageCheck, TruckIcon } from "lucide-react"
 
 import {
   Sidebar,
@@ -12,9 +12,7 @@ import {
   SidebarMenuItem,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
-import { Button } from "@/components/ui/button"
 
-// Menu items.
 const items = [
   {
     title: "Inbound",

@@ -58,7 +58,6 @@ def aumentar_quantidade(id):
     return jsonify({"message": "Quantidade atualizada com sucesso"}), 200
 
 
-# 🔁 Trocar posição
 @inventory_bp.route('/mover/<int:id>', methods=['PUT'])
 def mover_produto(id):
     data = request.get_json()
@@ -77,7 +76,6 @@ def mover_produto(id):
     return jsonify({"message": "Produto movido com sucesso"}), 200
 
 
-# ❌ Remover produto
 @inventory_bp.route('/deletar/<int:id>', methods=['DELETE'])
 def deletar_produto(id):
     produto = Produto.query.get(id)
