@@ -6,11 +6,11 @@ import { useEffect, useState } from "react";
 import { useFormContext } from "@/context/FormAddVehicle";
 import { getVehicles } from "./services/vehiclesService";
 import CardVehicles from "./components/CardVehicles";
-import { Separator } from "@radix-ui/react-separator";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { SearchIcon } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useRouter } from "next/navigation";
 
 type VeiculoProps = {
   dt_entrada: string;
@@ -26,6 +26,8 @@ type VeiculoProps = {
 };
 
 export default function VehiclesControl() {
+  const router = useRouter()
+  
   const { formActive, setFormActive } = useFormContext();
   const [veiculos, setVeiculos] = useState<VeiculoProps[]>([]);
   const [filtro, setFiltro] = useState("");
@@ -50,8 +52,9 @@ export default function VehiclesControl() {
 
   const emPatio = veiculos.filter((v) => v.status === "Em Patio");
 
-  useEffect(() => {
-    async function carregar() {
+
+
+  async function carregar() {
       try {
         setLoading(true);
         const dados = await getVehicles();
@@ -62,6 +65,8 @@ export default function VehiclesControl() {
         setLoading(false);
       }
     }
+  useEffect(() => {
+    
     carregar();
   }, []);
 

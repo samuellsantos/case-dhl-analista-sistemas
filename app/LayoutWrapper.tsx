@@ -21,7 +21,7 @@ export default function LayoutWrapper({ children }: { children: React.ReactNode 
         <SidebarInset>
           <main className="flex-1 p-6">
             <div>
-              Menu <SidebarTrigger name="MENU"/>
+               <SidebarTrigger/> Menu
             </div>
             {children}</main>
         </SidebarInset>

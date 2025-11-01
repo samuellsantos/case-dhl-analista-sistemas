@@ -17,7 +17,7 @@ export async function registerVehicle(data: any){
 
 
 export async function getVehicles() {
-  const response = await fetch("http://127.0.0.1:5000/vehicles/listar_veiculos", {
+  const response = await fetch("http://127.0.0.1:5000/vehicles/listar_veiculos",{
     method: "GET",
     headers: {
       "Content-Type": "application/json",

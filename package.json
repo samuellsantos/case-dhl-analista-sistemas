@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "api": "python backend/wsgi.py",
     "lint": "eslint"
   },
   "dependencies": {

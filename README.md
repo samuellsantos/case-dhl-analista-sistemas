@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Controle Logístico - ZYX
 
-## Getting Started
+Sistema desenvolvido para gerenciamento completo de operações logísticas, incluindo controle de inventário, entrada e saída de veículos, expedição de cargas e relatórios consolidados.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Tecnologias Utilizadas
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Frontend:** Next.js 13, React, Tailwind CSS, Lucide Icons  
+- **Backend:** Flask, Flask-SQLAlchemy, Flask-Login, Flask-CORS  
+- **Banco de Dados:** SQLite / SQLAlchemy ORM  
+- **Outros:** Sonner (toast notifications), FileSaver e XLSX (exportação para Excel)  
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Funcionalidades
 
-## Learn More
+### Inventário
+- Adicionar produtos com nome, SKU, quantidade e posição.  
+- Alterar quantidade de produtos e mover entre posições.  
+- Deletar produtos do inventário.  
+- Filtro e pesquisa por nome, SKU ou posição.  
+- Exportação do inventário para Excel.  
 
-To learn more about Next.js, take a look at the following resources:
+### Controle de Veículos
+- Registrar entrada de caminhões com placa, motorista, transportadora e observações.    
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Expedição
+- Marcar veículos como despachados.  
+- Adicionar NF, quantidade de volumes e peças ao despachar veículos.  
+- Validações de status para evitar duplicidade de despacho.  
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Dashboard
+- Visualização geral de inventário e veículos em pátio.  
+- Cards com estatísticas resumidas (Total de Itens, Produtos Cadastrados, Veículos em Pátio, etc.)  
+- Paginação e filtros nos dashboards.  
+- Notificações em tempo real via toast.  
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Como Rodar o Projeto
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Backend (Flask)
+1. Criar e ativar ambiente virtual:
+    No terminal executar os comandos abaixo
+   ```bash
+   python -m venv venv #Caso tenha uma pasta venv na raiz do projeto deletar antes de executar o comando
+   ./venv/Scripts/Activate.ps1 #Ativar ambiente virtual
+   cd backend # Ir para pasta backend
+   pip install -r requirements.txt # Instalar dependências
+
+2. Executar backend. Na raiz do projeto (case-dhl-analista-sistemas)
+    ```
+    comando: npm run api
+
+3. Executar Next JS. Na raiz do projeto (case-dhl-analista-sistemas)
+    ```
+    npm run dev
+    
+

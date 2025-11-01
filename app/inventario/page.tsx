@@ -8,7 +8,6 @@ import { SearchIcon, PlusIcon, BoxesIcon, XIcon, Divide } from "lucide-react";
 import CardComponent from "../components/Card";
 import {
   getInventory,
-  deleteProduct,
   updateQuantity,
 } from "./services/invetoryService";
 import { toast } from "sonner";
@@ -73,7 +72,7 @@ export default function InventarioDashboard() {
       <header className="flex justify-between items-center mb-8">
         <div>
           <h1 className="text-2xl font-bold flex items-center gap-2">
-            <BoxesIcon size={24} /> Inventory Dashboard
+            Inventário
           </h1>
           <p className="text-zinc-600">
             Gerencie e visualize o estoque em tempo real.
@@ -152,7 +151,7 @@ export default function InventarioDashboard() {
                       onClick={() => handleAlterarQuantidade(p.id, -1)}
                       disabled={p.quantidade <= 0}
                     >
-                      ➖
+                      -
                     </Button>
                     <span className="w-8 text-center font-bold">
                       {p.quantidade}
@@ -162,7 +161,7 @@ export default function InventarioDashboard() {
                       size="sm"
                       onClick={() => handleAlterarQuantidade(p.id, +1)}
                     >
-                      ➕
+                      +
                     </Button>
                   </div>
                 </div>

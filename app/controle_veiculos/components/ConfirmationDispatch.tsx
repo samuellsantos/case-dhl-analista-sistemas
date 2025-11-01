@@ -33,7 +33,7 @@ export default function ConfirmationDispatch({
   const despacharVeiculo = async () => {
     try {
       await updateVehicle(id);
-      router.refresh();
+      setTimeout(() => window.location.reload(), 2000);
       toast.success("Veículo despachado com sucesso!");
     } catch (error) {
       toast.error("Não foi possível realizar a ação de despacho.");
