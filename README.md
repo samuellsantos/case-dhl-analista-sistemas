@@ -6,7 +6,7 @@ Sistema desenvolvido para gerenciamento completo de operações logísticas, inc
 
 ## Tecnologias Utilizadas
 
-- **Frontend:** Next.js 13, React, Tailwind CSS, Lucide Icons  
+- **Frontend:** Next.js, React, Tailwind CSS, Lucide Icons  
 - **Backend:** Flask, Flask-SQLAlchemy, Flask-Login, Flask-CORS  
 - **Banco de Dados:** SQLite / SQLAlchemy ORM  
 - **Outros:** Sonner (toast notifications), FileSaver e XLSX (exportação para Excel)  
@@ -40,6 +40,8 @@ Sistema desenvolvido para gerenciamento completo de operações logísticas, inc
 
 ## Como Rodar o Projeto
 
+*IMPORTANTE: Ter node JS e Python instalados*
+
 ### Backend (Flask)
 1. Criar e ativar ambiente virtual:
     No terminal executar os comandos abaixo
@@ -47,14 +49,15 @@ Sistema desenvolvido para gerenciamento completo de operações logísticas, inc
    python -m venv venv #Caso tenha uma pasta venv na raiz do projeto deletar antes de executar o comando
    ./venv/Scripts/Activate.ps1 #Ativar ambiente virtual
    cd backend # Ir para pasta backend
-   pip install -r requirements.txt # Instalar dependências
+   python -m pip install -r requirements.txt # Instalar dependências
 
 2. Executar backend. Na raiz do projeto (case-dhl-analista-sistemas)
     ```
-    comando: npm run api
+    npm run api
 
 3. Executar Next JS. Na raiz do projeto (case-dhl-analista-sistemas)
     ```
+    npm i
     npm run dev
     
 
